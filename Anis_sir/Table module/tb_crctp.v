@@ -1,6 +1,6 @@
 primitive crctp (X, A, B, C);
-    output X;          // Output declaration
-    input A, B, C;     // Input declarations
+    output X;          
+    input A, B, C;   
 
     // Truth table for X(A,B,C)
     table
