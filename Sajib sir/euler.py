@@ -2,8 +2,8 @@ def f(x, y):
     f= 3*(x**2)+1
     return f
 
-
-def f2(x,y, fstr="3*(x**2)+1"):
+fstr= input("input your string equation : ")
+def f2(x,y, fstr=fstr):
     return eval(fstr)
 
 def euler_method(x0, y0, h, n):
