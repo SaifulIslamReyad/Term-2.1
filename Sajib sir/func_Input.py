@@ -7,6 +7,10 @@ print("The result is:", result)
 
 
 
+def func2(x,y, fstr):
+    return eval(fstr)
+
+
 
 
 
