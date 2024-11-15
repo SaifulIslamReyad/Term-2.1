@@ -1,9 +1,10 @@
-def f(x, y):
-    f= 3*(x**2)+1
-    return f
+# def f2(x, y):
+#     f= 3*(x**2)+1
+#     return f
 
 fstr= input("input your string equation : ")
-def f2(x,y, fstr=fstr):
+fstr=fstr.replace("^","**")
+def f(x,y, fstr=fstr):
     return eval(fstr)
 
 def euler_method(x0, y0, h, n):
@@ -22,3 +23,5 @@ h = float(input("enter step size (h): "))
 n = (float(input("enter the last value of x0 : "))-x0)/h
 n= round(n)
 euler_method(x0, y0, h, n)
+
+
