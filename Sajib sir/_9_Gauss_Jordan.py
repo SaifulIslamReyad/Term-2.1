@@ -1,5 +1,26 @@
 import re
 
+
+def gauss_jordan(matrix, b):
+    n = len(b)  # Number of rows
+    # Create an augmented matrix
+    aug_matrix = [row[:] + [b[i]] for i, row in enumerate(matrix)]
+
+    # Perform Gauss-Jordan elimination
+    for i in range(n):
+        # Scale the pivot row
+        pivot = aug_matrix[i][i]
+        aug_matrix[i] = [elem / pivot for elem in aug_matrix[i]]
+
+        # Eliminate elements above and below the pivot
+        for j in range(n):
+            if i != j:
+                factor = aug_matrix[j][i]
+                aug_matrix[j] = [aug_matrix[j][k] - factor * aug_matrix[i][k] for k in range(n + 1)]
+
+    # The last column of the augmented matrix is the solution
+    return [aug_matrix[i][-1] for i in range(n)]
+
 def parse_expression(expression):
     a = re.search(r'(-?\d*)(?=x)', expression)
     b = re.search(r'(-?\d*)(?=y)', expression)
@@ -25,25 +46,7 @@ def parse_expression(expression):
     
     return float(a), float(b), float(c), float(d)
 
-def gauss_jordan(matrix, b):
-    n = len(b)  # Number of rows
-    # Create an augmented matrix
-    aug_matrix = [row[:] + [b[i]] for i, row in enumerate(matrix)]
 
-    # Perform Gauss-Jordan elimination
-    for i in range(n):
-        # Scale the pivot row
-        pivot = aug_matrix[i][i]
-        aug_matrix[i] = [elem / pivot for elem in aug_matrix[i]]
-
-        # Eliminate elements above and below the pivot
-        for j in range(n):
-            if i != j:
-                factor = aug_matrix[j][i]
-                aug_matrix[j] = [aug_matrix[j][k] - factor * aug_matrix[i][k] for k in range(n + 1)]
-
-    # The last column of the augmented matrix is the solution
-    return [aug_matrix[i][-1] for i in range(n)]
 
 def solve_system():
     # User inputs the system of equations

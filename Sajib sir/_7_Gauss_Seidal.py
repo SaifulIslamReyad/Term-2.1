@@ -1,5 +1,20 @@
 import re
 
+def gauss_seidel(a, b, c, d, max_iter, tol=1e-6):
+    x = y = z = 0
+    for i in range(max_iter):
+        x_new = (d[0] - b[0] * y - c[0] * z) / a[0]
+        y_new = (d[1] - a[1] * x_new - c[1] * z) / b[1]
+        z_new = (d[2] - a[2] * x_new - b[2] * y_new) / c[2]
+        
+        if abs(x_new - x) < tol and abs(y_new - y) < tol and abs(z_new - z) < tol:
+            return x_new, y_new, z_new
+        
+        x, y, z = x_new, y_new, z_new
+        print(f"iter {i+1}: x = {x:.6f}, y = {y:.6f}, z = {z:.6f}")
+    
+    return x, y, z
+
 def parse_expression(expression):
     a = re.search(r'(-?\d*)(?=x)', expression)
     b = re.search(r'(-?\d*)(?=y)', expression)
@@ -22,20 +37,7 @@ def parse_expression(expression):
     
     return float(a), float(b), float(c), float(d)
 
-def gauss_seidel(a, b, c, d, max_iter, tol=1e-6):
-    x = y = z = 0
-    for i in range(max_iter):
-        x_new = (d[0] - b[0] * y - c[0] * z) / a[0]
-        y_new = (d[1] - a[1] * x_new - c[1] * z) / b[1]
-        z_new = (d[2] - a[2] * x_new - b[2] * y_new) / c[2]
-        
-        if abs(x_new - x) < tol and abs(y_new - y) < tol and abs(z_new - z) < tol:
-            return x_new, y_new, z_new
-        
-        x, y, z = x_new, y_new, z_new
-        print(f"iter {i+1}: x = {x:.6f}, y = {y:.6f}, z = {z:.6f}")
-    
-    return x, y, z
+
 
 eq1 = input("Enter the first equation: ")
 eq2 = input("Enter the second equation: ")

@@ -1,5 +1,17 @@
 import re
 
+
+def det(a,b,c):
+    return (a[0]*(b[1]*c[2]-c[1]*b[2])-b[0]*(a[1]*c[2]-c[1]*a[2])+c[0]*(a[1]*b[2]-b[1]*a[2]))
+def cramer(a,b,c,d):
+    determinant = det(a,b,c)
+    if determinant == 0:
+        return  0,0,0
+    x = det(d,b,c)/determinant
+    y = det(a,d,c)/determinant
+    z = det(a,b,d)/determinant
+    return x, y, z
+
 def parse_expression(expression):
     expression = expression.replace(' ', '')
     a = re.search(r'(-?\d*)(?=x)', expression)
@@ -20,16 +32,7 @@ def parse_expression(expression):
         c = '0'
     d = d.group(0) if d else '0'
     return float(a), float(b), float(c), float(d)
-def det(a,b,c):
-    return (a[0]*(b[1]*c[2]-c[1]*b[2])-b[0]*(a[1]*c[2]-c[1]*a[2])+c[0]*(a[1]*b[2]-b[1]*a[2]))
-def cramer(a,b,c,d):
-    determinant = det(a,b,c)
-    if determinant == 0:
-        return  0,0,0
-    x = det(d,b,c)/determinant
-    y = det(a,d,c)/determinant
-    z = det(a,b,d)/determinant
-    return x, y, z
+
 eq1 = input("Enter first equation (e.g., '2x + 2y - z = 0'): ")
 eq2 = input("Enter second equation (e.g., 'x - y + 3z = 9'): ")
 eq3 = input("Enter third equation (e.g., '4x + y - 2z = -4'): ")

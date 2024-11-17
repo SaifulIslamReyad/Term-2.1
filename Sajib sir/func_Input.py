@@ -6,13 +6,8 @@ result = func(x, fstr)
 print("The result is:", result)
 
 
-
 def func2(x,y, fstr):
     return eval(fstr)
-
-
-
-
 
 import re
 def parse_expression(expression):

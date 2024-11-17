@@ -1,5 +1,20 @@
 import re
 
+def jacobi(a, b, c, d, max_iter, tol=0.0005):
+    x = y = z = 0  
+    for i in range(max_iter):
+        x_ = (d[0] - b[0]*y - c[0]*z) / a[0]
+        y_ = (d[1] - a[1]*x - c[1]*z) / b[1]
+        z_ = (d[2] - a[2]*x - b[2]*y) / c[2]
+        
+        if abs(x_ - x) < tol and abs(y_ - y) < tol and abs(z_ - z) < tol:
+            return x_, y_, z_
+        
+        x, y, z = x_, y_, z_
+        print(f"iter {i+1}: x = {x:.4f}, y = {y:.4f}, z = {z:.4f}")
+        
+    return x, y, z
+
 def parse_expression(expression):
     a = re.search(r'(-?\d*)(?=x)', expression)
     b = re.search(r'(-?\d*)(?=y)', expression)
@@ -22,20 +37,7 @@ def parse_expression(expression):
     
     return float(a), float(b), float(c), float(d)
 
-def jacobi(a, b, c, d, max_iter, tol=0.0005):
-    x = y = z = 0  
-    for i in range(max_iter):
-        x_ = (d[0] - b[0]*y - c[0]*z) / a[0]
-        y_ = (d[1] - a[1]*x - c[1]*z) / b[1]
-        z_ = (d[2] - a[2]*x - b[2]*y) / c[2]
-        
-        if abs(x_ - x) < tol and abs(y_ - y) < tol and abs(z_ - z) < tol:
-            return x_, y_, z_
-        
-        x, y, z = x_, y_, z_
-        print(f"iter {i+1}: x = {x:.4f}, y = {y:.4f}, z = {z:.4f}")
-        
-    return x, y, z
+
 
 eq1 = input("Enter first equation (e.g., '2x + 2y - z = 0'): ")
 eq2 = input("Enter second equation (e.g., 'x - y + 3z = 9'): ")
